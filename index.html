@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dictionary App</title>
+</head>
+
+<body>
+  <h1>Dictionary App</h1>
+  <label for="searchWord">Enter a word:</label>
+  <input type="text" id="searchWord">
+  <button onclick="search()">Search</button>
+  <p id="result"></p>
+
+  <script>
+    // Sample dictionary (sorted array)
+    const dictionary = [
+      "apple", "banana", "cherry", "date", "fig", "grape", "kiwi", "orange", "pear", "watermelon"
+    ];
+
+    function binarySearch(word) {
+      let low = 0;
+      let high = dictionary.length - 1;
+
+      while (low <= high) {
+        const mid = Math.floor((low + high) / 2);
+        const midWord = dictionary[mid];
+
+        if (midWord === word) {
+          return mid; // Word found
+        } else if (midWord < word) {
+          low = mid + 1; // Search in the right half
+        } else {
+          high = mid - 1; // Search in the left half
+        }
+      }
+
+      return -1; // Word not found
+    }
+
+    function search() {
+      const searchWord = document.getElementById("searchWord").value.toLowerCase();
+      const resultElement = document.getElementById("result");
+
+      const index = binarySearch(searchWord);
+
+      if (index !== -1) {
+        resultElement.textContent = `${searchWord} found at index ${index}.`;
+      } else {
+        resultElement.textContent = `${searchWord} not found in the dictionary.`;
+      }
+    }
+  </script>
+</body>
+
+</html>
